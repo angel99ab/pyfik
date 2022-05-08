@@ -1,7 +1,15 @@
-from ttkthemes import ThemedTk
+from tkinter import Tk
 from tkinter import ttk
 
 
-root = ThemedTk(theme='arc')
+class App(Tk):
 
-root.mainloop()
+    def __init__(self):
+        Tk.__init__(self)
+        self.window_settings()
+
+    
+    def window_settings(self):
+        self.geometry('700x500')
+        self.resizable(False, False)
+    
