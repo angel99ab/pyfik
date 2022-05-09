@@ -1,15 +1,15 @@
 from tkinter import Tk
-from tkinter import ttk
-
+from custom_notebook import CustomNotebook
 
 class App(Tk):
 
     def __init__(self):
-        Tk.__init__(self)
-        self.window_settings()
+        super().__init__()
 
-    
-    def window_settings(self):
+        # root window config
         self.geometry('700x500')
         self.resizable(False, False)
+
+        self.notebook = CustomNotebook(self)
+        self.notebook.pack(expand=True, fill="both")
     
