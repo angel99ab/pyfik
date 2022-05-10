@@ -7,7 +7,7 @@ class App(Tk):
         super().__init__()
 
         # root window config
-        self.geometry('700x500')
+        self.geometry("500x400")
         self.resizable(False, False)
 
         self.notebook = CustomNotebook(self)
