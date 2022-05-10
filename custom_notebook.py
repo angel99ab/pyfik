@@ -1,4 +1,9 @@
 from tkinter import ttk
+import cpuinfo
+import platform
+import psutil
+
+from tab_general import TabGeneral
 
 
 class CustomNotebook(ttk.Notebook):
@@ -6,7 +11,7 @@ class CustomNotebook(ttk.Notebook):
     def __init__(self, master, **kw):
         super().__init__(master, **kw)
         
-        self.tab_general = ttk.Frame(self)
+        self.tab_general = TabGeneral(self)
         self.tab_cpu_info = ttk.Frame(self)
 
         self.add(self.tab_general, text='General')
