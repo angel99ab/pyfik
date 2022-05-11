@@ -1,6 +1,7 @@
 from tkinter import ttk
 import platform
-from cpuinfo import get_cpu_info
+import psutil
+from datetime import datetime
 
 
 class TabGeneral(ttk.Frame):
@@ -8,31 +9,41 @@ class TabGeneral(ttk.Frame):
     def __init__(self, master, **kw):
         super().__init__(master, **kw)
 
-        # Styles
-        self['padding'] = 15
+        label_frame_system = ttk.LabelFrame(self, text="System")
+        system = ttk.Label(label_frame_system, text=platform.system(), foreground="blue")
 
-        lbl_frame_system_info = ttk.LabelFrame(self, text="System Information")
+        label_frame_release = ttk.LabelFrame(self, text="Release")
+        release = ttk.Label(label_frame_release, text=platform.release(), foreground="blue")
 
-        lbl_system = ttk.Label(lbl_frame_system_info, text="System")
-        system = ttk.Label(lbl_frame_system_info, text=platform.system(), foreground="blue")
-        lbl_release = ttk.Label(lbl_frame_system_info, text="Release")
-        release = ttk.Label(lbl_frame_system_info, text=platform.release(), foreground="blue")
-        lbl_hostname = ttk.Label(lbl_frame_system_info, text="Hostname")
-        hostname = ttk.Label(lbl_frame_system_info, text=platform.node(), foreground="blue")
-        lbl_version = ttk.Label(lbl_frame_system_info, text="Version")
-        version = ttk.Label(lbl_frame_system_info, text=platform.version(), foreground="blue")
-        lbl_architecture = ttk.Label(lbl_frame_system_info, text="Architecture")
-        architecture = ttk.Label(lbl_frame_system_info, text=get_cpu_info()["arch"], foreground="blue")
+        label_frame_hostname = ttk.LabelFrame(self, text="Hostname")
+        hostname = ttk.Label(label_frame_hostname, text=platform.node(), foreground="blue")
 
-        lbl_system.grid(row=0, column=0)
-        system.grid(row=0, column=1)
-        lbl_release.grid(row=1, column=0)
-        release.grid(row=1, column=1)
-        lbl_hostname.grid(row=2, column=0)
-        hostname.grid(row=2, column=1)
-        lbl_version.grid(row=3, column=0)
-        version.grid(row=3, column=1)
-        lbl_architecture.grid(row=4, column=0)
-        architecture.grid(row=4, column=1)
+        label_frame_version = ttk.LabelFrame(self, text="Version")
+        version = ttk.Label(label_frame_version, text=platform.version(), foreground="blue")
 
-        lbl_frame_system_info.pack(fill="both", expand="yes")
+        label_frame_machine = ttk.LabelFrame(self, text="Machine")
+        machine = ttk.Label(label_frame_machine, text=platform.machine(), foreground="blue")
+
+        label_frame_boot_time = ttk.LabelFrame(self, text="Boot time")
+        boot_time = ttk.Label(label_frame_boot_time, text=self.get_boot_time(), foreground="blue")
+
+        system.pack(expand=1)
+        release.pack(expand=1)
+        hostname.pack(expand=1)
+        version.pack(expand=1)
+        machine.pack(expand=1)
+        boot_time.pack(expand=1)
+
+        label_frame_system.place(width=280, height=70, x=10, y=10)
+        label_frame_release.place(width=180, height=70, x=300, y=10)
+        label_frame_hostname.place(width=280, height=70, x=10, y=90)
+        label_frame_version.place(width=180, height=70, x=300, y=90)
+        label_frame_machine.place(width=180, height=70, x=300, y=170)
+        label_frame_boot_time.place(width=280, height=70, x=10, y=170)
+
+
+    def get_boot_time(self):
+        boot_time_timestamp = psutil.boot_time()
+        bt = datetime.fromtimestamp(boot_time_timestamp)
+        return f"{bt.day}/{bt.month}/{bt.year} {bt.hour}:{bt.minute}:{bt.second}"
+
