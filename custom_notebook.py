@@ -7,6 +7,9 @@ class CustomNotebook(ttk.Notebook):
     def __init__(self, master, **kw):
         super().__init__(master, **kw)
         
+        # Styles
+        self["padding"] = 2
+
         self.tab_general = TabGeneral(self)
         self.tab_cpu_info = ttk.Frame(self)
 
