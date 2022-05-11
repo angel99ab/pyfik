@@ -1,8 +1,4 @@
 from tkinter import ttk
-import cpuinfo
-import platform
-import psutil
-
 from tab_general import TabGeneral
 
 
