@@ -25,25 +25,38 @@ class TabGeneral(ttk.Frame):
         machine = ttk.Label(label_frame_machine, text=platform.machine(), foreground="blue")
 
         label_frame_boot_time = ttk.LabelFrame(self, text="Boot time")
-        boot_time = ttk.Label(label_frame_boot_time, text=self.get_boot_time(), foreground="blue")
+        label_frame_date = ttk.LabelFrame(label_frame_boot_time, text="Date")
+        label_frame_time = ttk.LabelFrame(label_frame_boot_time, text="Time")
+        date = ttk.Label(label_frame_date, text=self.get_boot_time()["date"], foreground="blue")
+        time = ttk.Label(label_frame_time, text=self.get_boot_time()["time"], foreground="blue")
 
         system.pack(expand=1)
         release.pack(expand=1)
         hostname.pack(expand=1)
         version.pack(expand=1)
         machine.pack(expand=1)
-        boot_time.pack(expand=1)
+        date.pack(expand=1)
+        time.pack(expand=1)
 
         label_frame_system.place(width=280, height=70, x=10, y=10)
         label_frame_release.place(width=180, height=70, x=300, y=10)
-        label_frame_hostname.place(width=280, height=70, x=10, y=90)
-        label_frame_version.place(width=180, height=70, x=300, y=90)
-        label_frame_machine.place(width=180, height=70, x=300, y=170)
-        label_frame_boot_time.place(width=280, height=70, x=10, y=170)
+
+        label_frame_version.place(width=280, height=70, x=10, y=90)
+        label_frame_machine.place(width=180, height=70, x=300, y=90)
+
+        label_frame_hostname.place(width=470, height=70, x=10, y=170)
+
+        label_frame_boot_time.place(width=470, height=110, x=10, y=250)
+        label_frame_date.place(width=215, height=70, x=10, y=10)
+        label_frame_time.place(width=215, height=70, x=240, y=10)
 
 
     def get_boot_time(self):
         boot_time_timestamp = psutil.boot_time()
         bt = datetime.fromtimestamp(boot_time_timestamp)
-        return f"{bt.day}/{bt.month}/{bt.year} {bt.hour}:{bt.minute}:{bt.second}"
+        my_dict = {
+            "date": f"{bt.day}/{bt.month}/{bt.year}",
+            "time": f"{bt.hour}:{bt.minute}:{bt.second}"
+        }
+        return my_dict 
 
