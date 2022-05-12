@@ -8,9 +8,10 @@ class TabCPU(ttk.Frame):
     def __init__(self, master, **kw):
         super().__init__(master, **kw)
         self.cpu_freq = psutil.cpu_freq()
+        self.cpu_info = get_cpu_info()
         
         label_frame_brand = ttk.LabelFrame(self, text="Specification")
-        brand = ttk.Label(label_frame_brand, text=get_cpu_info()["brand_raw"], foreground="blue")
+        brand = ttk.Label(label_frame_brand, text=self.cpu_info["brand_raw"], foreground="blue")
 
         label_frame_cores = ttk.LabelFrame(self, text="Cores")
         cores = ttk.Label(label_frame_cores, text=psutil.cpu_count(logical=False), foreground="blue")
@@ -25,16 +26,16 @@ class TabCPU(ttk.Frame):
         min_freq = ttk.Label(label_frame_min_freq, text=str(self.cpu_freq.min) + " Mhz", foreground="blue")
 
         label_frame_bits = ttk.LabelFrame(self, text="Bits")
-        bits = ttk.Label(label_frame_bits, text=get_cpu_info()["bits"], foreground="blue")
+        bits = ttk.Label(label_frame_bits, text=self.cpu_info["bits"], foreground="blue")
 
         label_frame_family = ttk.LabelFrame(self, text="Family")
-        family = ttk.Label(label_frame_family, text=get_cpu_info()["family"], foreground="blue")
+        family = ttk.Label(label_frame_family, text=self.cpu_info["family"], foreground="blue")
 
         label_frame_model = ttk.LabelFrame(self, text="Model")
-        model = ttk.Label(label_frame_model, text=get_cpu_info()["model"], foreground="blue")
+        model = ttk.Label(label_frame_model, text=self.cpu_info["model"], foreground="blue")
 
         label_frame_stepping = ttk.LabelFrame(self, text="Stepping")
-        stepping = ttk.Label(label_frame_stepping, text=get_cpu_info()["stepping"], foreground="blue")
+        stepping = ttk.Label(label_frame_stepping, text=self.cpu_info["stepping"], foreground="blue")
 
         brand.pack(expand=1)
         cores.pack(expand=1)
