@@ -14,4 +14,4 @@ class CustomNotebook(ttk.Notebook):
         self.tab_cpu_info = ttk.Frame(self)
 
         self.add(self.tab_general, text='General')
-        self.add(self.tab_cpu_info, text='CPU info')
+        self.add(self.tab_cpu_info, text='CPU')
