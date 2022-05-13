@@ -1,5 +1,5 @@
 from tkinter import Tk
-from tkinter.ttk import Style as ttk
+from tkinter.ttk import Style
 from custom_notebook import CustomNotebook
 
 
@@ -8,7 +8,7 @@ class App(Tk):
     def __init__(self):
         super().__init__()
 
-        ttk.Style().theme_use("default")
+        Style().theme_use("default")
 
         # root window config
         self.geometry("500x400")
