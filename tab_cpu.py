@@ -1,4 +1,4 @@
-from tkinter import ttk, Toplevel
+from tkinter import ttk
 from cpuinfo import get_cpu_info
 import psutil
 
@@ -40,6 +40,9 @@ class TabCPU(ttk.Frame):
         label_frame_stepping = ttk.LabelFrame(self, text="Stepping")
         stepping = ttk.Label(label_frame_stepping, text=self.cpu_info["stepping"], foreground="blue")
 
+        label_frame_flags = ttk.LabelFrame(self, text="Flags")
+        flags = ttk.Label(label_frame_flags, text=self.cpu_info["flags"], foreground="blue")
+
         brand.pack(expand=1)
         cores.pack(expand=1)
         threads.pack(expand=1)
@@ -50,6 +53,7 @@ class TabCPU(ttk.Frame):
         family.pack(expand=1)
         model.pack(expand=1)
         stepping.pack(expand=1)
+        flags.pack(expand=1)
 
         label_frame_brand.place(width=280, height=60, x=10, y=10)
         label_frame_cores.place(width=85, height=60, x=300, y=10)
@@ -63,3 +67,5 @@ class TabCPU(ttk.Frame):
         label_frame_family.place(width=110, height=60, x=130, y=150)
         label_frame_model.place(width=110, height=60, x=250, y=150)
         label_frame_stepping.place(width=110, height=60, x=370, y=150)
+
+        label_frame_flags.place(width=350, height=140, x=10, y=220)
