@@ -54,6 +54,7 @@ class TabCPU(ttk.Frame):
         model.pack(expand=1)
         stepping.pack(expand=1)
         flags.pack(expand=1)
+        ttk.Button(self, text="Show cores").place(width=150, height=30, x=170, y=330)
 
         label_frame_brand.place(width=280, height=60, x=10, y=10)
         label_frame_cores.place(width=85, height=60, x=300, y=10)
