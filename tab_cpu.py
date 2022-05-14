@@ -68,4 +68,4 @@ class TabCPU(ttk.Frame):
         label_frame_model.place(width=110, height=60, x=250, y=150)
         label_frame_stepping.place(width=110, height=60, x=370, y=150)
 
-        label_frame_flags.place(width=350, height=140, x=10, y=220)
+        label_frame_flags.place(width=470, height=100, x=10, y=220)
