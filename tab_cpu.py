@@ -1,4 +1,4 @@
-from tkinter import ttk
+from tkinter import ttk, Toplevel
 from cpuinfo import get_cpu_info
 import psutil
 
@@ -54,7 +54,7 @@ class TabCPU(ttk.Frame):
         model.pack(expand=1)
         stepping.pack(expand=1)
         flags.pack(expand=1)
-        ttk.Button(self, text="Show cores").place(width=150, height=30, x=170, y=330)
+        ttk.Button(self, text="Show cores", command=self.display_cores_window).place(width=150, height=30, x=170, y=330)
 
         label_frame_brand.place(width=280, height=60, x=10, y=10)
         label_frame_cores.place(width=85, height=60, x=300, y=10)
@@ -70,3 +70,12 @@ class TabCPU(ttk.Frame):
         label_frame_stepping.place(width=110, height=60, x=370, y=150)
 
         label_frame_flags.place(width=470, height=100, x=10, y=220)
+
+    
+    def display_cores_window(self):
+        window = Toplevel(self)
+        window.title("CPU cores")
+        window.geometry("320x400")
+        window.resizable(False, False)
+        window.grab_set()
+        
