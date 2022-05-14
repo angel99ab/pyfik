@@ -73,9 +73,24 @@ class TabCPU(ttk.Frame):
 
     
     def display_cores_window(self):
-        window = Toplevel(self)
-        window.title("CPU cores")
-        window.geometry("320x400")
-        window.resizable(False, False)
-        window.grab_set()
+        self.window = Toplevel(self)
+        self.window.title("CPU cores")
+        self.window.geometry("320x400")
+        self.window.resizable(False, False)
+        self.window.grab_set()
+
+        self.labels = []
+
+        for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
+            lbl = ttk.Label(self.window, text=f"Core {i}: {percentage} %")
+            lbl.pack(expand=1)
+            self.labels.append(lbl)
+
+        self.window.after(0, self.update_cpu_percent)
         
+
+    def update_cpu_percent(self):
+        for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
+            self.labels[i].config(text=f"Core {i}: {percentage} %")
+
+        self.window.after(1000, self.update_cpu_percent)
