@@ -50,7 +50,7 @@ class TabMemory(ttk.Frame):
         label_swap_used = ttk.Label(label_frame_swap, text="Used:")
         swap_used = ttk.Label(label_frame_swap, text=self.get_size(self.swap_memory.total), foreground="blue")
         label_swap_percentage = ttk.Label(label_frame_swap, text="Percentage:")
-        swap_percentage = ttk.Label(label_frame_swap, text=self.get_size(self.swap_memory.percent), foreground="blue")
+        swap_percentage = ttk.Label(label_frame_swap, text=str(self.swap_memory.percent) + " %", foreground="blue")
     
         label_swap_used.place(x=70, y=80)
         swap_used.place(x=110, y=80)
