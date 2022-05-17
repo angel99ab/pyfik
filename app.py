@@ -11,6 +11,8 @@ class App(Tk):
         style = Style()
         style.theme_use("default")
         style.configure("TNotebook.Tab", focuscolor="#d6d6d6");
+        style.configure("TButton", focuscolor="#d6d6d6");
+
         # root window config
         self.geometry("500x400")
         self.resizable(False, False)
