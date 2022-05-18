@@ -1,3 +1,4 @@
+from threading import Thread
 from tkinter import ttk, Toplevel
 from cpuinfo import get_cpu_info
 import psutil
@@ -85,12 +86,14 @@ class TabCPU(ttk.Frame):
             lbl = ttk.Label(self.window, text=f"Core {i}: {percentage} %")
             lbl.pack(expand=1)
             self.labels.append(lbl)
-
-        self.window.after(0, self.update_cpu_percent)
+    
+        thread = Thread(target=self.update_cpu_percent, daemon=True)
+        thread.start()
         
 
     def update_cpu_percent(self):
-        for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
-            self.labels[i].config(text=f"Core {i}: {percentage} %")
-
-        self.window.after(1000, self.update_cpu_percent)
+        running = True
+        n = 0
+        while running:
+            for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
+                self.labels[i].config(text=f"Core {i}: {percentage} %")
