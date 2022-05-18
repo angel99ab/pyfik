@@ -80,6 +80,7 @@ class TabCPU(ttk.Frame):
         self.window.resizable(False, False)
         self.window.grab_set()
 
+
         self.labels = []
 
         for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
@@ -92,8 +93,19 @@ class TabCPU(ttk.Frame):
         
 
     def update_cpu_percent(self):
-        running = True
-        n = 0
-        while running:
-            for i, percentage in enumerate(psutil.cpu_percent(percpu=True, interval=1)):
-                self.labels[i].config(text=f"Core {i}: {percentage} %")
+        i = 0
+        list_completed = False
+
+        while self.window.winfo_exists():
+            if not list_completed:
+                percentage_cores = psutil.cpu_percent(percpu=True, interval=1)
+                list_completed = True
+
+            if self.window.winfo_exists():
+                self.labels[i].config(text=f"Core {i}: {percentage_cores[i]} %")
+
+                if i == len(psutil.cpu_percent(percpu=True)) - 1:
+                    i = 0
+                    list_completed = False
+
+                i += 1
