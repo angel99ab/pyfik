@@ -95,6 +95,7 @@ class TabCPU(ttk.Frame):
     def update_cpu_percent(self):
         i = 0
         list_completed = False
+        max_cores = len(psutil.cpu_percent(percpu=True))
 
         while self.window.winfo_exists():
             if not list_completed:
@@ -104,8 +105,9 @@ class TabCPU(ttk.Frame):
             if self.window.winfo_exists():
                 self.labels[i].config(text=f"Core {i}: {percentage_cores[i]} %")
 
-                if i == len(psutil.cpu_percent(percpu=True)) - 1:
+                i += 1
+
+                if i == max_cores:
                     i = 0
                     list_completed = False
 
-                i += 1
