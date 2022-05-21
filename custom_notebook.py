@@ -1,4 +1,5 @@
 from tkinter import ttk
+from tab_disk_usage import TabDiskUsage
 from tab_general import TabGeneral
 from tab_cpu import TabCPU
 from tab_memory import TabMemory
@@ -15,7 +16,9 @@ class CustomNotebook(ttk.Notebook):
         self.tab_general = TabGeneral(self)
         self.tab_cpu_info = TabCPU(self)
         self.tab_memory_info = TabMemory(self)
+        self.tab_disk_usage = TabDiskUsage(self)
 
         self.add(self.tab_general, text='General')
         self.add(self.tab_cpu_info, text='CPU')
         self.add(self.tab_memory_info, text='Memory')
+        self.add(self.tab_disk_usage, text='Disk usage')
