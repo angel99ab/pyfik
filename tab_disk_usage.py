@@ -1,5 +1,4 @@
 from tkinter import ttk
-from turtle import width
 import psutil
 import customtkinter
 
@@ -27,6 +26,7 @@ class TabDiskUsage(ttk.Frame):
 
         ttk.Button(self, text="<", command=self.display_previous_frame).place(width=20, x=100, y=340)
         ttk.Button(self, text=">", command=self.display_next_frame).place(width=20, x=150, y=340)
+
         # for partition in self.partitions:
         #     label_frame = ttk.Labelframe(self, text=partition)
 
@@ -56,15 +56,17 @@ class TabDiskUsage(ttk.Frame):
         # print(f"Total write: {self.get_size(disk_io.write_bytes)}")
 
     def display_previous_frame(self):
-        self.container_childs[self.current_frame].place_forget()
-        self.current_frame -= 1
-        self.container_childs[self.current_frame].place(width=470, height=320, x=10, y=10)
+        if self.current_frame > 0:
+            self.container_childs[self.current_frame].place_forget()
+            self.current_frame -= 1
+            self.container_childs[self.current_frame].place(width=470, height=320, x=10, y=10)
 
 
     def display_next_frame(self):
-        self.container_childs[self.current_frame].place_forget()
-        self.current_frame += 1
-        self.container_childs[self.current_frame].place(width=470, height=320, x=10, y=10)
+        if self.current_frame < len(self.partitions) - 1:
+            self.container_childs[self.current_frame].place_forget()
+            self.current_frame += 1
+            self.container_childs[self.current_frame].place(width=470, height=320, x=10, y=10)
 
 
     def get_size(self, bytes, suffix="B"):
