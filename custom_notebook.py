@@ -3,6 +3,7 @@ from tab_disk_usage import TabDiskUsage
 from tab_general import TabGeneral
 from tab_cpu import TabCPU
 from tab_memory import TabMemory
+from tab_network import TabNetwork
 
 
 class CustomNotebook(ttk.Notebook):
@@ -17,8 +18,10 @@ class CustomNotebook(ttk.Notebook):
         self.tab_cpu_info = TabCPU(self)
         self.tab_memory_info = TabMemory(self)
         self.tab_disk_usage = TabDiskUsage(self)
+        self.tab_network = TabNetwork(self)
 
         self.add(self.tab_general, text='General')
         self.add(self.tab_cpu_info, text='CPU')
         self.add(self.tab_memory_info, text='Memory')
         self.add(self.tab_disk_usage, text='Disk usage')
+        self.add(self.tab_network, text='Network')
