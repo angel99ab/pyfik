@@ -51,6 +51,29 @@ class TabNetwork(ttk.Frame):
             ttk.Label(labelframe, text="Drops").place(x=300, y=90)
             ttk.Label(labelframe, text=self.network_info[i]["incoming"]["drops"], foreground="blue").place(x=370, y=90)
 
+            ttk.Label(labelframe, text="Outgoing").place(x=30, y=150)
+            ttk.Label(labelframe, text="Bytes").place(x=70, y=170)
+            ttk.Label(labelframe, text=self.network_info[i]["outgoing"]["bytes"], foreground="blue").place(x=140, y=170)
+            ttk.Label(labelframe, text="Pkts").place(x=70, y=190)
+            ttk.Label(labelframe, text=self.network_info[i]["outgoing"]["pkts"], foreground="blue").place(x=140, y=190)
+            ttk.Label(labelframe, text="Errs").place(x=70, y=210)
+            ttk.Label(labelframe, text=self.network_info[i]["outgoing"]["errs"], foreground="blue").place(x=140, y=210)
+            ttk.Label(labelframe, text="Drops").place(x=70, y=230)
+            ttk.Label(labelframe, text=self.network_info[i]["outgoing"]["drops"], foreground="blue").place(x=140, y=230)
+
+            try:
+                ttk.Label(labelframe, text="MAC").place(x=250, y=170)
+                ttk.Label(labelframe, text=self.network_info[i]["MAC"], foreground="blue").place(x=300, y=170)
+            except KeyError:
+                self.network_info[i]["MAC"] = ""
+                ttk.Label(labelframe, text="MAC").place(x=250, y=170)
+                ttk.Label(labelframe, text=self.network_info[i]["MAC"], foreground="blue").place(x=300, y=170)
+                
+            ttk.Label(labelframe, text="IPv4").place(x=250, y=190)
+            ttk.Label(labelframe, text=self.network_info[i]["IPv4"], foreground="blue").place(x=300, y=190)
+            ttk.Label(labelframe, text="IPv6").place(x=250, y=210)
+            ttk.Label(labelframe, text=self.network_info[i]["IPv6"], foreground="blue").place(x=300, y=210)
+
             self.container_childs.append(labelframe)
 
         self.container_childs[self.current_frame].place(width=470, height=320, x=10, y=10)
