@@ -1,4 +1,3 @@
-from doctest import master
 import customtkinter
 from tkinter.ttk import Style
 from custom_notebook import CustomNotebook
