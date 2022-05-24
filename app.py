@@ -21,7 +21,7 @@ class App(customtkinter.CTk):
         self.header_frame = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
         self.content_frame = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
 
-        self.header_frame.rowconfigure(0, weight=1, minsize=35)
+        self.header_frame.rowconfigure(0, weight=1, minsize=40)
 
         self.header_frame.grid(row=0, column=0, sticky="we", padx=2)
         self.content_frame.grid(row=1, column=0, sticky="nesw")
@@ -31,7 +31,8 @@ class App(customtkinter.CTk):
                                                    text="General",
                                                    width=28,
                                                    height=24,
-                                                   text_color="#ffffff")
+                                                   text_color="#ffffff",
+                                                   command=self.display_general_info)
 
         self.btn_cpu = customtkinter.CTkButton(master=self.header_frame,
                                                text="CPU",
@@ -62,3 +63,18 @@ class App(customtkinter.CTk):
         self.btn_memory.grid(row=0, column=2, padx=2)
         self.btn_disk_usage.grid(row=0, column=3, padx=2)
         self.btn_network.grid(row=0, column=4, padx=2)
+ 
+        # Save all frames to show in a list
+        self.container_frames = [
+            TabGeneral(master=self.content_frame, fg_color="#ffffff"),
+        ]
+        self.current_frame = 0 
+
+        # Show 'General' frame when opening the app for first time
+        self.container_frames[self.current_frame].pack(fill="both", expand=1)
+
+
+    def display_general_info(self):
+        self.container_frames[self.current_frame].pack_forget()
+        self.current_frame = 0
+        self.container_frames[self.current_frame].pack(fill="both", expand=1)

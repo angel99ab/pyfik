@@ -1,62 +1,97 @@
-from tkinter import ttk
+import customtkinter
 import platform
 import psutil
 from datetime import datetime
 
 
-class TabGeneral(ttk.Frame):
+class TabGeneral(customtkinter.CTkFrame):
 
-    def __init__(self, master, **kw):
-        super().__init__(master, **kw)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        label_frame_system = ttk.LabelFrame(self, text="System")
-        system = ttk.Label(label_frame_system, text=platform.system(), foreground="blue")
+        # Expand grid columns of parent frame
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
 
-        label_frame_release = ttk.LabelFrame(self, text="Release")
-        release = ttk.Label(label_frame_release, text=platform.release(), foreground="blue")
+        # Create labels
+        self.label_system = customtkinter.CTkLabel(master=self,
+                                                   text="System",
+                                                   text_color="#509fe9",
+                                                   width=10,
+                                                   text_font=('Sans-serif','11','bold'))
+                                            
+        self.system = customtkinter.CTkLabel(master=self,
+                                             text=platform.system(),
+                                             width=10)
 
-        label_frame_hostname = ttk.LabelFrame(self, text="Hostname")
-        hostname = ttk.Label(label_frame_hostname, text=platform.node(), foreground="blue")
+        self.label_release = customtkinter.CTkLabel(master=self,
+                                                    text="Release",
+                                                    text_color="#509fe9",
+                                                    width=10,
+                                                    text_font=('Sans-serif','11','bold'))
 
-        label_frame_version = ttk.LabelFrame(self, text="Version")
-        version = ttk.Label(label_frame_version, text=platform.version(), foreground="blue")
+        self.release = customtkinter.CTkLabel(master=self,
+                                              text=platform.release(),
+                                              width=10)
 
-        label_frame_machine = ttk.LabelFrame(self, text="Machine")
-        machine = ttk.Label(label_frame_machine, text=platform.machine(), foreground="blue")
+        self.label_hostname = customtkinter.CTkLabel(master=self,
+                                                     text="Hostname",
+                                                     text_color="#509fe9",
+                                                     width=10,
+                                                     text_font=('Sans-serif','11','bold'))
 
-        label_frame_boot_time = ttk.LabelFrame(self, text="Boot time")
-        label_frame_date = ttk.LabelFrame(label_frame_boot_time, text="Date")
-        label_frame_time = ttk.LabelFrame(label_frame_boot_time, text="Time")
-        date = ttk.Label(label_frame_date, text=self.get_boot_time()["date"], foreground="blue")
-        time = ttk.Label(label_frame_time, text=self.get_boot_time()["time"], foreground="blue")
+        self.hostname = customtkinter.CTkLabel(master=self,
+                                               text=platform.node(),
+                                               width=10)
 
-        system.pack(expand=1)
-        release.pack(expand=1)
-        hostname.pack(expand=1)
-        version.pack(expand=1)
-        machine.pack(expand=1)
-        date.pack(expand=1)
-        time.pack(expand=1)
+        self.label_version = customtkinter.CTkLabel(master=self,
+                                                    text="Version",
+                                                    text_color="#509fe9",
+                                                    width=10,
+                                                    text_font=('Sans-serif','11','bold'))
 
-        label_frame_system.place(width=280, height=70, x=10, y=10)
-        label_frame_release.place(width=180, height=70, x=300, y=10)
+        self.version = customtkinter.CTkLabel(master=self,
+                                              text=platform.version(),
+                                              width=10)
 
-        label_frame_version.place(width=280, height=70, x=10, y=90)
-        label_frame_machine.place(width=180, height=70, x=300, y=90)
+        self.label_machine = customtkinter.CTkLabel(master=self,
+                                                    text="Machine",
+                                                    text_color="#509fe9",
+                                                    width=10,
+                                                    text_font=('Sans-serif','11','bold'))
 
-        label_frame_hostname.place(width=470, height=70, x=10, y=170)
+        self.machine = customtkinter.CTkLabel(master=self,
+                                              text=platform.machine(),
+                                              width=10)
 
-        label_frame_boot_time.place(width=470, height=110, x=10, y=250)
-        label_frame_date.place(width=215, height=70, x=10, y=10)
-        label_frame_time.place(width=215, height=70, x=240, y=10)
+        self.label_boot_time = customtkinter.CTkLabel(master=self,
+                                                      text="Boot time",
+                                                      text_color="#509fe9",
+                                                      width=10,
+                                                      text_font=('Sans-serif','11','bold'))
+
+        self.boot_time = customtkinter.CTkLabel(master=self,
+                                                text=self.get_boot_time(),
+                                                width=10)
+
+        # Display the labels
+        self.label_system.grid(row=0, column=0, sticky="e")
+        self.system.grid(row=0, column=1, sticky="w")
+        self.label_release.grid(row=1, column=0, sticky="e")
+        self.release.grid(row=1, column=1, sticky="w")
+        self.label_hostname.grid(row=2, column=0, sticky="e")
+        self.hostname.grid(row=2, column=1, sticky="w")
+        self.label_version.grid(row=3, column=0, sticky="e")
+        self.version.grid(row=3, column=1, sticky="w")
+        self.label_machine.grid(row=4, column=0, sticky="e")
+        self.machine.grid(row=4, column=1, sticky="w")
+        self.label_boot_time.grid(row=5, column=0, sticky="e")
+        self.boot_time.grid(row=5, column=1, sticky="w")
 
 
     def get_boot_time(self):
         boot_time_timestamp = psutil.boot_time()
         bt = datetime.fromtimestamp(boot_time_timestamp)
-        my_dict = {
-            "date": f"{bt.day}/{bt.month}/{bt.year}",
-            "time": f"{bt.hour}:{bt.minute}:{bt.second}"
-        }
-        return my_dict 
-
+        date = f"{bt.day}/{bt.month}/{bt.year}"
+        time = f"{bt.hour}:{bt.minute}:{bt.second}"
+        return f"{date} {time}"
