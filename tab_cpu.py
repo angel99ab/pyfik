@@ -72,7 +72,7 @@ class TabCPU(customtkinter.CTkFrame):
                                                      text_font=('Sans-serif','11','bold'))
                                             
         self.min_freq = customtkinter.CTkLabel(master=self.frame_left,
-                                               text=str(self.cpu_freq.min) + " Mhz",
+                                               text=str(self.check_min_freq()) + " Mhz",
                                                width=10)
 
         self.label_current_freq = customtkinter.CTkLabel(master=self.frame_left,
@@ -237,3 +237,10 @@ class TabCPU(customtkinter.CTkFrame):
                 if i == max_cores:
                     i = 0
                     list_completed = False
+
+
+    def check_min_freq(self):
+        if self.cpu_freq.min == 0.0:
+           return self.cpu_freq.max
+        
+        return self.cpu_freq.min
