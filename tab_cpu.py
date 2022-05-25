@@ -43,7 +43,7 @@ class TabCPU(customtkinter.CTkFrame):
         # Create and configure left frame 
         self.frame_left = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
         self.frame_left.columnconfigure(1, weight=1)
-        self.frame_left.grid(row=1, column=0, sticky="nesw", pady=25)
+        self.frame_left.grid(row=1, column=0, sticky="nesw")
 
         self.label_cores = customtkinter.CTkLabel(master=self.frame_left,
                                                   text="Cores",
@@ -172,7 +172,7 @@ class TabCPU(customtkinter.CTkFrame):
         flags = self.cpu_info["flags"]
         n = 0
 
-        for i in range(1, 10, 1):
+        for i in range(1, 9, 1):
             for j in range(3):
                 label_flag = customtkinter.CTkLabel(master=self.frame_right,
                                                     text=flags[n],
@@ -192,7 +192,7 @@ class TabCPU(customtkinter.CTkFrame):
                                                          text_color="#ffffff",
                                                          command=self.display_cores_window)
 
-        self.button_show_cores.grid(row=0, column=0)
+        self.button_show_cores.grid(row=0, column=0, sticky="n")
 
 
     def display_cores_window(self):
