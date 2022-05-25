@@ -1,3 +1,4 @@
+from threading import Thread
 import customtkinter
 from tab_general import TabGeneral
 from tab_cpu import TabCPU
@@ -21,7 +22,9 @@ class App(customtkinter.CTk):
         self.header_frame = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
         self.content_frame = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
 
-        self.header_frame.rowconfigure(0, weight=1, minsize=40)
+        self.header_frame.rowconfigure(0, minsize=40)
+        self.content_frame.rowconfigure(0, weight=1)
+        self.content_frame.columnconfigure(0, weight=1)
 
         self.header_frame.grid(row=0, column=0, sticky="we", padx=2)
         self.content_frame.grid(row=1, column=0, sticky="nesw")
@@ -38,7 +41,8 @@ class App(customtkinter.CTk):
                                                text="CPU",
                                                width=28,
                                                height=24,
-                                               text_color="#ffffff")
+                                               text_color="#ffffff",
+                                               command=self.display_cpu_info)
 
         self.btn_memory = customtkinter.CTkButton(master=self.header_frame,
                                                   text="Memory",
@@ -66,15 +70,29 @@ class App(customtkinter.CTk):
  
         # Save all frames to show in a list
         self.container_frames = [
-            TabGeneral(master=self.content_frame, fg_color="#ffffff"),
+            TabGeneral(master=self.content_frame, fg_color="#ffffff")
         ]
         self.current_frame = 0 
 
         # Show 'General' frame when opening the app for first time
-        self.container_frames[self.current_frame].pack(fill="both", expand=1)
+        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+
+        self.t = Thread(target=self.load_frames, daemon=True)
+        self.t.start()
 
 
     def display_general_info(self):
-        self.container_frames[self.current_frame].pack_forget()
+        self.container_frames[self.current_frame].grid_forget()
         self.current_frame = 0
-        self.container_frames[self.current_frame].pack(fill="both", expand=1)
+        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+
+
+    def display_cpu_info(self):
+        if not self.t.is_alive():
+            self.container_frames[self.current_frame].grid_forget()
+            self.current_frame = 1
+            self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+
+    
+    def load_frames(self):
+        self.container_frames.append(TabCPU(master=self.content_frame, fg_color="#ffffff"))
