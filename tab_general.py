@@ -75,18 +75,18 @@ class TabGeneral(customtkinter.CTkFrame):
                                                 width=10)
 
         # Display the labels
-        self.label_system.grid(row=0, column=0, sticky="e")
-        self.system.grid(row=0, column=1, sticky="w")
-        self.label_release.grid(row=1, column=0, sticky="e")
-        self.release.grid(row=1, column=1, sticky="w")
-        self.label_hostname.grid(row=2, column=0, sticky="e")
-        self.hostname.grid(row=2, column=1, sticky="w")
-        self.label_version.grid(row=3, column=0, sticky="e")
-        self.version.grid(row=3, column=1, sticky="w")
-        self.label_machine.grid(row=4, column=0, sticky="e")
-        self.machine.grid(row=4, column=1, sticky="w")
-        self.label_boot_time.grid(row=5, column=0, sticky="e")
-        self.boot_time.grid(row=5, column=1, sticky="w")
+        self.label_system.grid(row=0, column=0, sticky="e", ipady=4)
+        self.system.grid(row=0, column=1, sticky="w", ipady=4)
+        self.label_release.grid(row=1, column=0, sticky="e", ipady=4)
+        self.release.grid(row=1, column=1, sticky="w", ipady=4)
+        self.label_hostname.grid(row=2, column=0, sticky="e", ipady=4)
+        self.hostname.grid(row=2, column=1, sticky="w", ipady=4)
+        self.label_version.grid(row=3, column=0, sticky="e", ipady=4)
+        self.version.grid(row=3, column=1, sticky="w", ipady=4)
+        self.label_machine.grid(row=4, column=0, sticky="e", ipady=4)
+        self.machine.grid(row=4, column=1, sticky="w", ipady=4)
+        self.label_boot_time.grid(row=5, column=0, sticky="e", ipady=4)
+        self.boot_time.grid(row=5, column=1, sticky="w", ipady=4)
 
 
     def get_boot_time(self):
