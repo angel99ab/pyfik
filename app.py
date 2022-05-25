@@ -75,7 +75,7 @@ class App(customtkinter.CTk):
         self.current_frame = 0 
 
         # Show 'General' frame when opening the app for first time
-        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw", pady=40)
 
         self.t = Thread(target=self.load_frames, daemon=True)
         self.t.start()
@@ -84,7 +84,7 @@ class App(customtkinter.CTk):
     def display_general_info(self):
         self.container_frames[self.current_frame].grid_forget()
         self.current_frame = 0
-        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+        self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw", pady=40)
 
 
     def display_cpu_info(self):
