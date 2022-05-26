@@ -99,7 +99,7 @@ class TabMemory(customtkinter.CTkFrame):
                                                  width=10)
 
         self.label_swap_free = customtkinter.CTkLabel(master=self.frame_bottom,
-                                                      text="Used",
+                                                      text="Free",
                                                       text_color="#509fe9",
                                                       width=10,
                                                       text_font=('Sans-serif','11','bold'))
