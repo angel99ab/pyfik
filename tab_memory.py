@@ -1,64 +1,134 @@
+import customtkinter
 from tkinter import ttk
 import psutil
 
 
-class TabMemory(ttk.Frame):
+class TabMemory(customtkinter.CTkFrame):
 
-    def __init__(self, master, **kw):
-        super().__init__(master, **kw)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.vitual_memory = psutil.virtual_memory()
         self.swap_memory = psutil.swap_memory()
 
-        # RAM memory
-        label_frame_ram = ttk.LabelFrame(self, text="RAM")
+        # Setup layout of parent frame
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
 
-        label_ram_total = ttk.Label(label_frame_ram, text="Total:")
-        ram_total = ttk.Label(label_frame_ram, text=self.get_size(self.vitual_memory.total), foreground="blue")
-        label_ram_used = ttk.Label(label_frame_ram, text="Used:")
-        ram_used = ttk.Label(label_frame_ram, text=self.get_size(self.vitual_memory.used), foreground="blue")
-       
-        label_ram_total.place(x=70, y=20)
-        ram_total.place(x=110, y=20)
-        label_ram_used.place(x=290, y=20)
-        ram_used.place(x=330, y=20)
+        # Create and configure top frame
+        self.frame_top = customtkinter.CTkFrame(master=self, fg_color="#fff")
+        self.frame_top.columnconfigure(0, weight=1)
+        self.frame_top.columnconfigure(1, weight=1)
+        self.frame_top.columnconfigure(2, weight=1)
+        self.frame_top.columnconfigure(3, weight=1)
+        self.frame_top.columnconfigure(4, weight=1)
+        self.frame_top.columnconfigure(5, weight=1)
+        self.frame_top.grid(row=0, column=0, sticky="nesw")
 
-        label_ram_available = ttk.Label(label_frame_ram, text="Available:")
-        ram_available = ttk.Label(label_frame_ram, text=self.get_size(self.vitual_memory.available), foreground="blue")
-        label_ram_percentage = ttk.Label(label_frame_ram, text="Percentage:")
-        ram_percentage = ttk.Label(label_frame_ram, text=str(self.vitual_memory.percent) + " %", foreground="blue")
+        self.label_ram = customtkinter.CTkLabel(master=self.frame_top,
+                                                text="RAM",
+                                                text_color="#509fe9",
+                                                width=10,
+                                                text_font=('Sans-serif','11','bold'))
+
+        self.label_ram_total = customtkinter.CTkLabel(master=self.frame_top,
+                                                      text="Total",
+                                                      text_color="#509fe9",
+                                                      width=10,
+                                                      text_font=('Sans-serif','11','bold'))
+
+        self.ram_total = customtkinter.CTkLabel(master=self.frame_top,
+                                                text=self.get_size(self.vitual_memory.total),
+                                                width=10)
+
+        self.label_ram_used = customtkinter.CTkLabel(master=self.frame_top,
+                                                     text="Used",
+                                                     text_color="#509fe9",
+                                                     width=10,
+                                                     text_font=('Sans-serif','11','bold'))
+
+        self.ram_used = customtkinter.CTkLabel(master=self.frame_top,
+                                               text=self.get_size(self.vitual_memory.used),
+                                               width=10)
+
+        self.label_ram_available = customtkinter.CTkLabel(master=self.frame_top,
+                                                          text="Available",
+                                                          text_color="#509fe9",
+                                                          width=10,
+                                                          text_font=('Sans-serif','11','bold'))
+
+        self.ram_available = customtkinter.CTkLabel(master=self.frame_top,
+                                                    text=self.get_size(self.vitual_memory.available),
+                                                    width=10)
+    
+        self.label_ram.grid(row=0, column=0, columnspan=6, pady=20)
+
+        self.label_ram_total.grid(row=1, column=0, sticky="e", pady=20)
+        self.ram_total.grid(row=1, column=1, sticky="w", pady=20)
+
+        self.label_ram_used.grid(row=1, column=2, sticky="e", pady=20)
+        self.ram_used.grid(row=1, column=3, sticky="w", pady=20)
         
-        label_ram_available.place(x=70, y=80)
-        ram_available.place(x=130, y=80)
-        label_ram_percentage.place(x=290, y=80)
-        ram_percentage.place(x=360, y=80)
+        self.label_ram_available.grid(row=1, column=4, sticky="e", pady=20)
+        self.ram_available.grid(row=1, column=5, sticky="w", pady=20)
 
-        label_frame_ram.place(width=470, height=170, x=10, y=10)
+        # Create and configure bottom frame
+        self.frame_bottom = customtkinter.CTkFrame(master=self, fg_color="#ffffff")
+        self.frame_bottom.columnconfigure(0, weight=1)
+        self.frame_bottom.columnconfigure(1, weight=1)
+        self.frame_bottom.columnconfigure(2, weight=1)
+        self.frame_bottom.columnconfigure(3, weight=1)
+        self.frame_bottom.columnconfigure(4, weight=1)
+        self.frame_bottom.columnconfigure(5, weight=1)
+        self.frame_bottom.grid(row=1, column=0, sticky="nesw")
 
-        # Swap memory
-        label_frame_swap = ttk.LabelFrame(self, text="Swap")
+        self.label_swap = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                 text="SWAP",
+                                                 text_color="#509fe9",
+                                                 width=10,
+                                                 text_font=('Sans-serif','11','bold'))
 
-        label_swap_total = ttk.Label(label_frame_swap, text="Total:")
-        swap_total = ttk.Label(label_frame_swap, text=self.get_size(self.swap_memory.total), foreground="blue")
-        label_swap_free = ttk.Label(label_frame_swap, text="Free:")
-        swap_free = ttk.Label(label_frame_swap, text=self.get_size(self.swap_memory.free), foreground="blue")
+        self.label_swap_total = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                       text="Total",
+                                                       text_color="#509fe9",
+                                                       width=10,
+                                                       text_font=('Sans-serif','11','bold'))
+
+        self.swap_total = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                 text=self.get_size(self.swap_memory.total),
+                                                 width=10)
+
+        self.label_swap_free = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                      text="Used",
+                                                      text_color="#509fe9",
+                                                      width=10,
+                                                      text_font=('Sans-serif','11','bold'))
+
+        self.swap_free = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                text=self.get_size(self.swap_memory.free),
+                                                width=10)
+
+        self.label_swap_used = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                      text="Used",
+                                                      text_color="#509fe9",
+                                                      width=10,
+                                                      text_font=('Sans-serif','11','bold'))
+
+        self.swap_used = customtkinter.CTkLabel(master=self.frame_bottom,
+                                                text=self.get_size(self.swap_memory.used),
+                                                width=10)
     
-        label_swap_total.place(x=70, y=20)
-        swap_total.place(x=110, y=20)
-        label_swap_free.place(x=290, y=20)
-        swap_free.place(x=320, y=20)
+        self.label_swap.grid(row=0, column=0, columnspan=6, pady=20)
 
-        label_swap_used = ttk.Label(label_frame_swap, text="Used:")
-        swap_used = ttk.Label(label_frame_swap, text=self.get_size(self.swap_memory.total), foreground="blue")
-        label_swap_percentage = ttk.Label(label_frame_swap, text="Percentage:")
-        swap_percentage = ttk.Label(label_frame_swap, text=str(self.swap_memory.percent) + " %", foreground="blue")
-    
-        label_swap_used.place(x=70, y=80)
-        swap_used.place(x=110, y=80)
-        label_swap_percentage.place(x=290, y=80)
-        swap_percentage.place(x=360, y=80)
+        self.label_swap_total.grid(row=1, column=0, sticky="e", pady=20)
+        self.swap_total.grid(row=1, column=1, sticky="w", pady=20)
 
-        label_frame_swap.place(width=470, height=170, x=10, y=190)
-
+        self.label_swap_free.grid(row=1, column=2, sticky="e", pady=20)
+        self.swap_free.grid(row=1, column=3, sticky="w", pady=20)
+        
+        self.label_swap_used.grid(row=1, column=4, sticky="e", pady=20)
+        self.swap_used.grid(row=1, column=5, sticky="w", pady=20)
+        
 
     def get_size(self, bytes, suffix="B"):
         factor = 1024

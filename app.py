@@ -2,6 +2,7 @@ from threading import Thread
 import customtkinter
 from tab_general import TabGeneral
 from tab_cpu import TabCPU
+from tab_memory import TabMemory
 
 
 class App(customtkinter.CTk):
@@ -48,7 +49,8 @@ class App(customtkinter.CTk):
                                                   text="Memory",
                                                   width=28,
                                                   height=24,
-                                                  text_color="#ffffff")
+                                                  text_color="#ffffff",
+                                                  command=self.display_memory_info)
 
         self.btn_disk_usage = customtkinter.CTkButton(master=self.header_frame,
                                                   text="Disk usage",
@@ -93,6 +95,13 @@ class App(customtkinter.CTk):
             self.current_frame = 1
             self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
 
+    def display_memory_info(self):
+        if not self.t.is_alive():
+            self.container_frames[self.current_frame].grid_forget()
+            self.current_frame = 2
+            self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+
     
     def load_frames(self):
         self.container_frames.append(TabCPU(master=self.content_frame, fg_color="#ffffff"))
+        self.container_frames.append(TabMemory(master=self.content_frame, fg_color="#ffffff"))
