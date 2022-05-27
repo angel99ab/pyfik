@@ -3,6 +3,7 @@ import customtkinter
 from tab_general import TabGeneral
 from tab_cpu import TabCPU
 from tab_memory import TabMemory
+from tab_disk_usage import TabDiskUsage
 
 
 class App(customtkinter.CTk):
@@ -56,7 +57,8 @@ class App(customtkinter.CTk):
                                                   text="Disk usage",
                                                   width=28,
                                                   height=24,
-                                                  text_color="#ffffff")
+                                                  text_color="#ffffff",
+                                                  command=self.display_disk_usage_info)
 
         self.btn_network = customtkinter.CTkButton(master=self.header_frame,
                                                   text="Network",
@@ -101,7 +103,14 @@ class App(customtkinter.CTk):
             self.current_frame = 2
             self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
 
+    def display_disk_usage_info(self):
+        if not self.t.is_alive():
+            self.container_frames[self.current_frame].grid_forget()
+            self.current_frame = 3
+            self.container_frames[self.current_frame].grid(row=0, column=0, sticky="nesw")
+
     
     def load_frames(self):
         self.container_frames.append(TabCPU(master=self.content_frame, fg_color="#ffffff"))
         self.container_frames.append(TabMemory(master=self.content_frame, fg_color="#ffffff"))
+        self.container_frames.append(TabDiskUsage(master=self.content_frame, fg_color="#ffffff"))
