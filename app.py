@@ -14,6 +14,7 @@ class App(customtkinter.CTk):
 
         # Root window config
         self.set_appearance_mode("Light")
+        self.title("Pyfik")
         self.geometry("500x400")
         self.resizable(False, False)
         
