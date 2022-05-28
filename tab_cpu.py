@@ -1,7 +1,5 @@
-from doctest import master
 import customtkinter
 from threading import Thread
-from tkinter import ttk, Toplevel
 from cpuinfo import get_cpu_info
 import psutil
 

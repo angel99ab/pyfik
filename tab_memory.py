@@ -1,5 +1,4 @@
 import customtkinter
-from tkinter import ttk
 import psutil
 
 
