@@ -196,33 +196,44 @@ class TabCPU(customtkinter.CTkFrame):
 
 
     def display_cores_window(self):
-        self.window = customtkinter.CTkToplevel(master=self)
+        self.window = customtkinter.CTkToplevel(master=self, fg_color="#ffffff")
         self.window.title("CPU cores")
-        self.window.geometry("320x400")
+        self.window.geometry("250x400")
         self.window.resizable(False, False)
         self.window.grab_set()
 
-        self.labels = []
- 
+        # Expand the columns of the window
+        self.window.columnconfigure(0, weight=1)
+        self.window.columnconfigure(1, weight=1)
 
-        # for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
-        #     lbl_core = customtkinter.CTkLabel(self.window, text=f"Core {i} [")
-        #     lbl__bar_percentage = customtkinter.CTkLabel(self.window, text=f"||||||||||")
-        #     lbl_number_percentage = customtkinter.CTkLabel(self.window, text=f"57.2 %]")
-        #     self.labels.append(lbl)
-        #     self.window.grid_columnconfigure()
+        self.cores = []
+ 
+        for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
+            self.window.rowconfigure(0, weight=1)
+
+            label_core_number = customtkinter.CTkLabel(master=self.window,
+                                                       text=f"Core {i}",
+                                                       text_color="#509fe9",
+                                                       width=30,
+                                                       text_font=('Sans-serif','11','bold'))
+
+            label_core_percentage = customtkinter.CTkLabel(master=self.window,
+                                                           text=f"{percentage}%",
+                                                           width=10)
+
+            label_core_number.grid(row=i, column=0)
+            label_core_percentage.grid(row=i, column=1)
+
+            self.cores.append(label_core_percentage)
+
+        thread = Thread(target=self.update_cpu_percent, daemon=True)
+        thread.start()
     
-        lbl_core = customtkinter.CTkLabel(self.window, text=f"Core 8 [").pack(side="left")
-        lbl__bar_percentage = customtkinter.CTkLabel(self.window, text="|||||||||||||||||||").pack(side="left")
-        lbl_number_percentage = customtkinter.CTkLabel(self.window, text=f"57.2 %]").pack(side="left")
-        # thread = Thread(target=self.update_cpu_percent, daemon=True)
-        # thread.start()
-        
 
     def update_cpu_percent(self):
         i = 0
         list_completed = False
-        max_cores = len(psutil.cpu_percent(percpu=True))
+        total_cpu_cores = len(psutil.cpu_percent(percpu=True))
 
         while self.window.winfo_exists():
             if not list_completed:
@@ -230,11 +241,11 @@ class TabCPU(customtkinter.CTkFrame):
                 list_completed = True
 
             if self.window.winfo_exists():
-                self.labels[i].config(text=f"Core {i}: {percentage_cores[i]} %")
+                self.cores[i].config(text=f"{percentage_cores[i]}%")
 
                 i += 1
 
-                if i == max_cores:
+                if i == total_cpu_cores:
                     i = 0
                     list_completed = False
 
