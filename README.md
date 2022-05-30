@@ -12,7 +12,7 @@ A simple and basic monitoring tool made in Tkinter
 - [psutil](https://github.com/giampaolo/psutil "psutil")
 - [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo "py-cpuinfo")
 
-> **_NOTE:_**  See [requirements.txt](https://github.com/angel99ab/pyfik/blob/main/requirements.txt "requirements.txt") for specifict version.
+> **_NOTE:_**  See [requirements.txt](https://github.com/angel99ab/pyfik/blob/main/requirements.txt "requirements.txt") for specific version.
 
 ## Installation
 1. Download the repository
