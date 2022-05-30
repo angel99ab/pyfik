@@ -2,4 +2,4 @@
 
 A simple and basic monitoring tool made in Tkinter
 
-![](https://assets.digitalocean.com/articles/alligator/boo.svg)
+![](https://github.com/angel99ab/pyfik/blob/main/images/app.png)
