@@ -185,7 +185,7 @@ class TabNetwork(customtkinter.CTkFrame):
             frame_outgoing.grid(row=2, column=0, sticky="nesw")
 
             label_outgoing = customtkinter.CTkLabel(master=frame_outgoing,
-                                                    text="Incoming",
+                                                    text="Outgoing",
                                                     text_color="#509fe9",
                                                     width=10,
                                                     text_font=('Sans-serif','11','bold'))
